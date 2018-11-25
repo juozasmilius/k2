@@ -3,23 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Place;
 
-class PlacesController extends Controller
+class SubCategoriesController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $s = $request ->input('s');
-
-        $places = Place::search($s)
-        ->paginate(9);
-            
-        return view('places.places', compact('places', 's'));
+        //
     }
 
     /**
@@ -51,7 +45,7 @@ class PlacesController extends Controller
      */
     public function show($id)
     {
-        return 123;
+        //
     }
 
     /**

@@ -20,3 +20,5 @@ Auth::routes();
 Route::get('/dashboard', 'DashboardController@index');
 
 Route::resource('places', 'PlacesController');
+Route::resource('category', 'CategoriesController');
+Route::resource('subcat', 'SubCategoriesController');
