@@ -4,19 +4,7 @@
 
 <!-- Carousel -->
 <div class="text-center">
-  <h1>PRAMOGOS</h1>  
+  <h1>Sveiki atykę į atsinaujinusį Kapamatyti tinklapį</h1>  
 </div>
-
-@include('landing.landpramogos')
-
-
-<!-- -->
-<br><hr><br>
-<div class="text-center">
-    <h1>APGYVENDINIMAS</h1>
-  </div>
-
-  @include('landing.landpramogos')
-
 
 @endsection

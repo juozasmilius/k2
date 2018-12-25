@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+//use Laravel\Scout\Searchable;
+
 use Illuminate\Http\Request;
 use App\Place;
 
@@ -12,12 +14,15 @@ class PlacesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    //use Searchable;
+
     public function index(Request $request)
     {
+
+        
         $s = $request ->input('s');
 
-        $places = Place::search($s)
-        ->paginate(9);
+        $places = Place::search($s)->orderBy('id', 'decs')->paginate(9);
             
         return view('places.places', compact('places', 's'));
     }
@@ -51,7 +56,9 @@ class PlacesController extends Controller
      */
     public function show($id)
     {
-        return 123;
+        $place = Place::findOrFail($id);
+
+        return view('places.place')->with('place', $place);
     }
 
     /**
