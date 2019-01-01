@@ -53,6 +53,31 @@
                     </li>
                 @endguest
             </ul>
+            <ul class="navbar-nav ml-auto">
+            {!! Form::open(['method' => 'POST', 'route' => 'changelocale', 'class' => 'form-inline navbar-select']) !!}
+                @csrf
+                <div class="form-group @if($errors->first('locale')) has-error @endif">
+                    <span aria-hidden="true"><i class="fa fa-flag"></i></span>
+                    {!! Form::select(
+                        'locale',
+                        ['en' => 'EN', 'lt' => 'LT'],
+                        \App::getLocale(),
+                        [
+                            'id'       => 'locale',
+                            'class'    => 'form-control',
+                            'required' => 'required',
+                            'onchange' => 'this.form.submit()',
+                        ]
+                    ) !!}
+                    <small class="text-danger">{{ $errors->first('locale') }}</small>
+                </div>
+
+                <div class="btn-group pull-right sr-only">
+                    {!! Form::submit("Change", ['class' => 'btn btn-success']) !!}
+                </div>
+
+            {!! Form::close() !!}
+            </ul>
         </div>
     </div>
 </nav>

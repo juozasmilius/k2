@@ -22,3 +22,4 @@ Route::get('/dashboard', 'DashboardController@index');
 Route::resource('places', 'PlacesController');
 Route::resource('category', 'CategoriesController');
 Route::resource('subcat', 'SubCategoriesController');
+Route::post('changelocale', ['as' => 'changelocale', 'uses' => 'TranslationController@changeLocale']);
