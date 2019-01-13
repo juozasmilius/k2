@@ -36,37 +36,39 @@
 
  <!-- ABOUT START -->
  <div class="card-deck justify-content-center">
- <div class="card bg-light mb-3" style="max-width: 18rem;">
-  <div class="card-header text-center"><img style="width: 6rem;" src="../storage/vietos/icons/001.png" alt="Kontaktai"></div>
-  <div class="card-body">
-    <h5 class="card-title font-weight-bold text-dark text-center">Vieta</h5>
-    <p class="card-text"><strong>Tipas:</strong> {{$place->tipas}}</p>
-    <p class="card-text"><strong>Adresas:</strong> {{$place->adresas}}, {{$place->miestas}}, {{$place->rajonas}} sav.</p>
-    <p class="card-text"><strong>Koordinatės:</strong> {{$place->koordinates}}</p>
-    <p class="card-text"><strong>Šaltinis:</strong> <a href="{{$place->saltinis}}" target="_blank" alt="{{$place->pavadinimas}}">plačiau</a></p>
+  <div class="card bg-light">
+    <div class="card-header text-center"><img class="card-img-top w-25" src="../storage/vietos/icons/001.png" alt="Kontaktai"></div>
+    <div class="card-body">
+      <h4 class="card-title font-weight-bold text-dark text-center">Vieta</h4>
+      <p class="card-text"><strong>Tipas:</strong> {{$place->tipas}}</p>
+      <p class="card-text"><strong>Adresas:</strong> {{$place->adresas}}, {{$place->miestas}}, {{$place->rajonas}} sav.</p>
+      <p class="card-text"><strong>Koordinatės:</strong> {{$place->koordinates}}</p>
+      <p class="card-text"><strong>Šaltinis:</strong> <a href="{{$place->saltinis}}" target="_blank" alt="{{$place->pavadinimas}}">plačiau</a></p>
+    </div>
   </div>
-</div>
-<div class="card bg-light mb-3" style="max-width: 26rem;">
-  <div class="card-header text-center"><img style="width: 6rem;" src="../storage/vietos/icons/002.png" alt="Kontaktai"></div>
-  <div class="card-body">
-    <h5 class="card-title font-weight-bold text-dark text-center">Aprašymas</h5>
-    <p class="card-text">{{$place->aprasymas}}</p>
+  <div class="card bg-light">
+    <div class="card-header text-center"><img class="card-img-top w-25"  src="../storage/vietos/icons/002.png" alt="Kontaktai"></div>
+    <div class="card-body">
+      <h4 class="card-title font-weight-bold text-dark text-center">Aprašymas</h4>
+      <p class="card-text">{{$place->aprasymas}}</p>
+    </div>
   </div>
-</div>
-<div class="card bg-light mb-3" style="max-width: 18rem;">
-  <div class="card-header text-center"><img style="width: 6rem;" src="../storage/vietos/icons/003.png" alt="Kontaktai"></div>
-  <div class="card-body">
-    <h5 class="card-title font-weight-bold text-dark text-center">Žemėlapis</h5>
-    <p class="card-text text-center"><a href="https://www.google.lt/maps/dir/{{$place->koordinates}}" class="font-weight-bold text-dark " target="_blank" alt="{{$place->pavadinimas}}"><img style="width: 15rem;" src="../storage/vietos/icons/map.jpg" alt="{{$place->pavadinimas}}"></div></a></p>
+  <div class="card bg-light">
+    <div class="card-header text-center"><img class="card-img-top w-25" src="../storage/vietos/icons/003.png" alt="Kontaktai"></div>
+    <div class="card-body">
+      <h4 class="card-title font-weight-bold text-dark text-center">Žemėlapis</h4>
+      <p class="card-text text-center"><a href="https://www.google.lt/maps/dir/{{$place->koordinates}}" class="font-weight-bold text-dark " target="_blank" alt="{{$place->pavadinimas}}"><img class="img-fluid" src="../storage/vietos/icons/map.jpg" alt="{{$place->pavadinimas}}"></a></p>  
+    </div>
   </div>
-</div>
 </div>
 
 <!-- ABOUT END -->
 
 <!-- COMENTS START -->
 
-<h1 class="card-title font-weight-bold text-dark text-center text-uppercase ">Komentarai</h1>
+<h1 class="font-weight-bold text-dark text-center text-uppercase ">Komentarai</h1>
+
+
 
 
 <!-- COMENTS END -->

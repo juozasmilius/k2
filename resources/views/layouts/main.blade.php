@@ -23,20 +23,27 @@
 </head>
 <body>
     <div id="app">
-        @include('inc.navbar')
+        
         
                 @auth
                 <div class="container-fluid">
                     <div class="row">
-                        @include('inc.leftsidebar')
-                        <main class="py-4">
-                            <div class="container">
-                                    @yield('content')
-                            </div>
-                        </main>
+                        <div class="col-md-2">
+                            @include('inc.leftsidebar')
+                        </div>
+                        <div class="col">
+                            @include('inc.navbar')
+                            <main class="py-4">
+                                <div class="container">
+                                        @yield('content')
+                                </div>
+                            </main>
+                        </div>
+                        
                     </div>
                 </div>
                 @else
+                @include('inc.navbar')
                 <main class="py-4">
                     <div class="container">
                         @yield('content')
@@ -46,4 +53,5 @@
                 @endauth
     </div>
 </body>
+
 </html>

@@ -18,13 +18,19 @@ class PlacesController extends Controller
 
     public function index(Request $request)
     {
-
         
+        $r = $request ->input('r'); 
+        $p = $request ->input('p');  
+        $t = $request ->input('t');
         $s = $request ->input('s');
 
-        $places = Place::search($s)->orderBy('id', 'decs')->paginate(9);
+        $rajonai=Place::select('rajonas')->distinct()->orderBy('rajonas')->get();
+        $parkai=Place::select('parkas')->where('parkas', 'NOT LIKE', 'ne')->where('parkas', 'NOT LIKE', '')->distinct()->orderBy('parkas')->get();
+        $tipai=Place::select('tipas')->distinct()->orderBy('tipas')->get();
+
+        $places = Place::search($r, $p, $t, $s)->orderBy('id', 'decs')->paginate(9);
             
-        return view('places.places', compact('places', 's'));
+        return view('places.places', compact('places', 's', 'rajonai', 'parkai', 'tipai', 'r', 'p', 't'));
     }
 
     /**
@@ -54,11 +60,35 @@ class PlacesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id, Request $request)
     {
+        if($request ->input('r') == 'visi'){
+            $r = '';  
+          }else{
+            $r = $request ->input('r');  
+          }
+
+          if($request ->input('p') == 'visi'){
+            $p = '';  
+          }else{
+            $p = $request ->input('p');  
+          }
+
+          if($request ->input('t') == 'visi'){
+              $t = '';  
+          }else{
+              $t = $request ->input('t');
+          }
+  
+          $s = $request ->input('s');
+        $rajonai=Place::select('rajonas')->distinct()->orderBy('rajonas')->get();
+        $parkai=Place::select('parkas')->where('parkas', 'NOT LIKE', 'ne')->where('parkas', 'NOT LIKE', '')->distinct()->orderBy('parkas')->get();
+        $tipai=Place::select('tipas')->distinct()->orderBy('tipas')->get();
+        $places = Place::search($r, $p, $t, $s)->orderBy('id', 'decs')->paginate(9);
+        
         $place = Place::findOrFail($id);
 
-        return view('places.place')->with('place', $place);
+        return view('places.place', compact('places', 's', 'rajonai', 'parkai', 'tipai', 'r', 'p', 't'))->with('place', $place);
     }
 
     /**
