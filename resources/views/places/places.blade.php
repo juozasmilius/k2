@@ -33,7 +33,7 @@ $rowCount = 0;
         @endforeach
     </div>
 
-    {{$places->appends(['s' => $s])->links()}}
+    {{$places->appends(['s' => $s, 'r' => $r, 'p' => $p, 't' => $t])->links()}}
 @elseif($places->count() < 2)
     @foreach ($places as $place)
         <div class="card" style="width: 30%;">

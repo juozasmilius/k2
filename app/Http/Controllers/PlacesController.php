@@ -18,17 +18,16 @@ class PlacesController extends Controller
 
     public function index(Request $request)
     {
+        $rajonai=Place::select('rajonas')->distinct()->orderBy('rajonas')->get();
+        $parkai=Place::select('parkas')->where('parkas', 'NOT LIKE', 'ne')->where('parkas', 'NOT LIKE', '')->distinct()->orderBy('parkas')->get();
+        $tipai=Place::select('tipas')->distinct()->orderBy('tipas')->get();
         
         $r = $request ->input('r'); 
         $p = $request ->input('p');  
         $t = $request ->input('t');
         $s = $request ->input('s');
 
-        $rajonai=Place::select('rajonas')->distinct()->orderBy('rajonas')->get();
-        $parkai=Place::select('parkas')->where('parkas', 'NOT LIKE', 'ne')->where('parkas', 'NOT LIKE', '')->distinct()->orderBy('parkas')->get();
-        $tipai=Place::select('tipas')->distinct()->orderBy('tipas')->get();
-
-        $places = Place::search($r, $p, $t, $s)->orderBy('id', 'decs')->paginate(9);
+        $places = Place::search($s)->Rajonas($r)->Parkas($p)->Tipas($t)->orderBy('id', 'decs')->paginate(9);
             
         return view('places.places', compact('places', 's', 'rajonai', 'parkai', 'tipai', 'r', 'p', 't'));
     }

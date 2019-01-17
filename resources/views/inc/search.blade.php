@@ -1,8 +1,7 @@
 <form action="/places" method="GET">
-    @csrf
     <div class="form-row">
         <div class="form-group col-md-4">
-            <label for="rajonas">Rajonai</label>
+            <label for="rajonas">Pagal savivaldybę</label>
             <select class="form-control" name="r" id="rajonas">
             <option>Visi</option>
             @foreach ($rajonai as $rajonas)
@@ -12,7 +11,7 @@
         </div>
     
         <div class="form-group col-md-4">
-            <label for="parkas">Regioniniai parkai</label>
+            <label for="parkas">Pagal regioninį parką</label>
             <select class="form-control" name="p" id="parkas">
             <option>Visi</option>
             @foreach ($parkai as $parkas)
@@ -21,7 +20,7 @@
             </select>
         </div>
         <div class="form-group col-md-4">
-            <label for="tipas">Lankytinų vietų tipai</label>
+            <label for="tipas">Pagal lankytinos vietos tipą</label>
             <select class="form-control" name="t" id="tipas">
             <option>Visi</option>
             @foreach ($tipai as $tipas)
