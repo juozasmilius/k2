@@ -17,16 +17,25 @@ class PlacesController extends Controller
     //use Searchable;
 
     public function index(Request $request)
-    {
+    {   
+        /*
+            Užpildo paieškos pasirinkimą
+        */
         $rajonai=Place::select('rajonas')->distinct()->orderBy('rajonas')->get();
         $parkai=Place::select('parkas')->where('parkas', 'NOT LIKE', 'ne')->where('parkas', 'NOT LIKE', '')->distinct()->orderBy('parkas')->get();
         $tipai=Place::select('tipas')->distinct()->orderBy('tipas')->get();
         
+        /*
+            Perduoda paieškos pasirinkimą Scope funkcijai
+        */
         $r = $request ->input('r'); 
         $p = $request ->input('p');  
         $t = $request ->input('t');
         $s = $request ->input('s');
 
+        /*
+            Rastą pasirinkimą gražina į ekraną 
+        */
         $places = Place::search($s)->Rajonas($r)->Parkas($p)->Tipas($t)->orderBy('id', 'decs')->paginate(9);
             
         return view('places.places', compact('places', 's', 'rajonai', 'parkai', 'tipai', 'r', 'p', 't'));
@@ -61,33 +70,35 @@ class PlacesController extends Controller
      */
     public function show($id, Request $request)
     {
-        if($request ->input('r') == 'visi'){
-            $r = '';  
-          }else{
-            $r = $request ->input('r');  
-          }
-
-          if($request ->input('p') == 'visi'){
-            $p = '';  
-          }else{
-            $p = $request ->input('p');  
-          }
-
-          if($request ->input('t') == 'visi'){
-              $t = '';  
-          }else{
-              $t = $request ->input('t');
-          }
-  
-          $s = $request ->input('s');
+        /*
+            Užpildo paieškos pasirinkimą
+        */
         $rajonai=Place::select('rajonas')->distinct()->orderBy('rajonas')->get();
         $parkai=Place::select('parkas')->where('parkas', 'NOT LIKE', 'ne')->where('parkas', 'NOT LIKE', '')->distinct()->orderBy('parkas')->get();
         $tipai=Place::select('tipas')->distinct()->orderBy('tipas')->get();
-        $places = Place::search($r, $p, $t, $s)->orderBy('id', 'decs')->paginate(9);
         
-        $place = Place::findOrFail($id);
+        /*
+            Perduoda paieškos pasirinkimą Scope funkcijai
+        */
+        $r = $request ->input('r'); 
+        $p = $request ->input('p');  
+        $t = $request ->input('t');
+        $s = $request ->input('s');
 
-        return view('places.place', compact('places', 's', 'rajonai', 'parkai', 'tipai', 'r', 'p', 't'))->with('place', $place);
+        /*
+            Rastą pasirinkimą gražina į ekraną 
+        */
+        $places = Place::search($s)->Rajonas($r)->Parkas($p)->Tipas($t)->orderBy('id', 'decs')->paginate(9);
+
+
+        /*
+            Suranda vietą
+        */
+
+        $place = Place::findOrFail($id);    
+        
+        return view('places.places', compact('places', 's', 'rajonai', 'parkai', 'tipai', 'r', 'p', 't'))->with('place', $place);
+
     }
 
     /**

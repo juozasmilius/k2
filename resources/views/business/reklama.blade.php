@@ -13,3 +13,10 @@
   </div>
 
   @include('business.apgyvendinimas')
+
+
+  @if(count($randomai) > 0)
+    @foreach ($randomai as $random)
+      <h1>{{$random->id}}</h1>
+    @endforeach
+  @endif
