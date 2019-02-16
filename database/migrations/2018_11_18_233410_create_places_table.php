@@ -40,6 +40,8 @@ class CreatePlacesTable extends Migration
             $table->string('paveikslelis5');
             $table->integer('patinka');
             $table->integer('nepatinka');
+            $table->integer('perziuros');
+            $table->integer('komentarai');
             $table->timestamps();
         });
     }

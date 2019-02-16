@@ -17,7 +17,7 @@ class ReklamosController extends Controller
     {
         $randomai = Place::all()->random(6);
 
-        return view('business.reklama')->with('randomai', $randomai);
+        return view('layouts.main')->with('randomai', $randomai);
        
     }
 

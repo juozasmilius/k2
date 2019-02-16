@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-light navbar-laravel" style="padding:0">
+<nav class="navbar navbar-expand-md navbar-light navbar-laravel" style="padding:2">
     <div class="container">
         <a class="navbar-brand" href="{{ url('/') }}">
             {{ config('app.name', 'Ką pamatyti') }}
@@ -18,6 +18,21 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/places">{{ __('Lankytinos vietos') }}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/places">{{ __('Maitinimas') }}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/places">{{ __('Apgyvendinimas') }}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/places">{{ __('Nuoma') }}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/places">{{ __('Pramogos') }}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/places">{{ __('Renginiai') }}</a>
                 </li>
             </ul>
 
@@ -57,7 +72,7 @@
             {!! Form::open(['method' => 'POST', 'route' => 'changelocale', 'class' => 'form-inline navbar-select']) !!}
                 @csrf
                 <div class="form-group @if($errors->first('locale')) has-error @endif">
-                    <span aria-hidden="true"><i class="fa fa-flag"></i></span>
+                    <span aria-hidden="true"></span>
                     {!! Form::select(
                         'locale',
                         ['en' => 'EN', 'lt' => 'LT'],

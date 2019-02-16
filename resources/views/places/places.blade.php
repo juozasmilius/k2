@@ -4,6 +4,8 @@
 
 @include('inc.search')
 
+
+
 @if($places->count() > 1)
 
 <?php
@@ -14,16 +16,30 @@ $rowCount = 0;
 
     <div class="card-deck">
         @foreach ($places as $place)
-            <div class="card w-33">
+           
+            <div class="card w-33"> 
+            @if($place->paveikslelis != null)
+                <a href="places/{{$place->id}}"><img class="card-img-top" style="height:232px" src="storage/vietos/picture/{{$place->paveikslelis}}" alt="{{$place->pavadinimas}}"></a>
+            @else
+                <a href="places/{{$place->id}}"><img class="card-img-top" style="height:232px" src="storage/vietos/picture/nera.jpg" alt="{{$place->pavadinimas}}"></a>
+            @endif
                 @if(!empty($place->paveikslelis))
-                    <a href="places/{{$place->id}}"><img class="card-img-top" src="storage/vietos/picture/{{$place->paveikslelis}}" alt="{{$place->pavadinimas}}"></a>
+                    
                 @endif
                 <div class="card-body">
                     <a href="places/{{$place->id}}"><h5 class="card-title font-weight-bold text-dark text-center">{{$place->pavadinimas}}</h5></a>
                     <p class="card-text">{{$place->trumpas_aprasymas}}</p>
                 </div>
                 <div class="card-footer text-right">
-                    <a href="places/{{$place->id}}" class="btn btn-outline-primary">{{__("Plačiau")}}</a>
+                    <div class="row">
+                        <div class="col justify-center">
+                        <i class="fa fa-heart"> {{ $place->perziuros }}</i>
+                        <i class="fa fa-eye"> {{ $place->perziuros }}</i> 
+                        </div>
+                        <div class="col">
+                            <a href="places/{{$place->id}}" class="btn btn-outline-primary ">{{__("Plačiau")}}</a>
+                        </div>
+                    </div>  
                 </div>
             </div>
         <?php
@@ -38,7 +54,7 @@ $rowCount = 0;
     @foreach ($places as $place)
         <div class="card" style="width: 30%;">
             @if(!empty($place->paveikslelis))
-                <a href="places/{{$place->id}}"><img class="card-img-top" src="storage/vietos/picture/{{$place->paveikslelis}}" alt="{{$place->pavadinimas}}"></a>
+                <a href="places/{{$place->id}}"><img class="card-img-top" style="height:232px" src="storage/vietos/picture/{{$place->paveikslelis}}" alt="{{$place->pavadinimas}}"></a>
             @endif
             <div class="card-body">
                 <a href="places/{{$place->id}}"><h5 class="card-title font-weight-bold text-dark text-center">{{$place->pavadinimas}}</h5></a>

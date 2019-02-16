@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 //use Laravel\Scout\Searchable;
 
 use Illuminate\Http\Request;
+use FarhanWazir\GoogleMaps\GMaps;
 use App\Place;
 
 class PlacesController extends Controller
@@ -15,6 +16,11 @@ class PlacesController extends Controller
      * @return \Illuminate\Http\Response
      */
     //use Searchable;
+
+    protected $gmap;
+    public function __construct(GMaps $gmap){
+        $this->gmap = $gmap;
+    }
 
     public function index(Request $request)
     {   
@@ -36,9 +42,68 @@ class PlacesController extends Controller
         /*
             Rastą pasirinkimą gražina į ekraną 
         */
-        $places = Place::search($s)->Rajonas($r)->Parkas($p)->Tipas($t)->orderBy('id', 'decs')->paginate(9);
-            
-        return view('places.places', compact('places', 's', 'rajonai', 'parkai', 'tipai', 'r', 'p', 't'));
+        
+        $places = Place::search($s)->Rajonas($r)->Parkas($p)->Tipas($t)->orderBy('id', 'decs')->paginate(9);  
+
+        /*
+            Google maps 
+        */
+
+        /******** Custom Map Controls ********
+        $leftTopControls = ['document.getElementById("leftTopControl")']; // values must be html or javascript element
+        $this->gmap->injectControlsInLeftTop = $leftTopControls; // inject into map
+        $leftCenterControls = ['document.getElementById("leftCenterControl")'];
+        $this->gmap->injectControlsInLeftCenter = $leftCenterControls;
+        $leftBottomControls = ['document.getElementById("leftBottomControl")'];
+        $this->gmap->injectControlsInLeftBottom = $leftBottomControls;
+        $bottomLeftControls = ['document.getElementById("bottomLeftControl")'];
+        $this->gmap->injectControlsInBottomLeft = $bottomLeftControls;
+        $bottomCenterControls = ['document.getElementById("bottomCenterControl")'];
+        $this->gmap->injectControlsInBottomCenter = $bottomCenterControls;
+        $bottomRightControls = ['document.getElementById("bottomRightControl")'];
+        $this->gmap->injectControlsInBottomRight = $bottomRightControls;
+        $rightTopControls = ['document.getElementById("rightTopControl")'];
+        $this->gmap->injectControlsInRightTop = $rightTopControls;
+        $rightCenterControls = ['document.getElementById("rightCenterControl")'];
+        $this->gmap->injectControlsInRightCenter = $rightCenterControls;
+        $rightBottomControls = ['document.getElementById("rightBottomControl")'];
+        $this->gmap->injectControlsInRightBottom = $rightBottomControls;
+        $topLeftControls = ['document.getElementById("topLeftControl")'];
+        $this->gmap->injectControlsInTopLeft = $topLeftControls;
+        $topCenterControls = ['document.getElementById("topCenterControl")'];
+        $this->gmap->injectControlsInTopCenter = $topCenterControls;
+        $topRightControls = ['document.getElementById("topRightControl")'];
+        $this->gmap->injectControlsInTopRight = $topRightControls;
+        /******** End Controls ********
+
+        $config = array();
+        $config['map_height'] = "100%";
+        $config['center'] = 'Clifton, Karachi';
+        $config['onboundschanged'] = 'if (!centreGot) {
+            var mapCentre = map.getCenter();
+            marker_0.setOptions({
+                position: new google.maps.LatLng(mapCentre.lat(), mapCentre.lng())
+            });
+        }
+        centreGot = true;';
+        $this->gmap->initialize($config); // Initialize Map with custom configuration
+        // set up the marker ready for positioning
+        $marker = array();
+        $marker['draggable'] = true;
+        $marker['ondragend'] = '
+        iw_'. $this->gmap->map_name .'.close();
+        reverseGeocode(event.latLng, function(status, result, mark){
+            if(status == 200){
+                iw_'. $this->gmap->map_name .'.setContent(result);
+                iw_'. $this->gmap->map_name .'.open('. $this->gmap->map_name .', mark);
+            }
+        }, this);
+        ';
+        $this->gmap->add_marker($marker);
+        $map = $this->gmap->create_map(); // This object will render javascript files and map view; you can call JS by $map['js'] and map view by $map['html']
+*/
+
+        return view('places.places', compact('places', 'map', 's', 'rajonai', 'parkai', 'tipai', 'r', 'p', 't'));
     }
 
     /**
@@ -89,16 +154,17 @@ class PlacesController extends Controller
             Rastą pasirinkimą gražina į ekraną 
         */
         $places = Place::search($s)->Rajonas($r)->Parkas($p)->Tipas($t)->orderBy('id', 'decs')->paginate(9);
-
+        
+        
+        $place = Place::findOrFail($id);
 
         /*
-            Suranda vietą
+            Padidina perziuros reiksme 1 
         */
+        $place->increment('perziuros');
 
-        $place = Place::findOrFail($id);    
-        
-        return view('places.places', compact('places', 's', 'rajonai', 'parkai', 'tipai', 'r', 'p', 't'))->with('place', $place);
 
+        return view('places.place', compact('places', 's', 'rajonai', 'parkai', 'tipai', 'r', 'p', 't'))->with('place', $place);
     }
 
     /**
