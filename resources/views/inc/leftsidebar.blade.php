@@ -2,7 +2,7 @@
     <div class="sidebar-sticky">
         <div class="card text-center">
             <div class="card-header">
-                <img src="../storage/avatar/juozasmilius.jpg" alt="{{ Auth::user()->name }}" class="rounded-circle justify-content-center" style="width:8rem;">
+                <img src="../storage/avatar/juozasmilius.jpg" alt="{{ Auth::user()->name }}" class="rounded-circle justify-content-center img-fluid" style="width:8rem;">
             </div>
             <div class="car-body">
                 <div class="container">
